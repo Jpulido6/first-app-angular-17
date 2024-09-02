@@ -1,0 +1,189 @@
+<div class="max-w-[720px] mx-auto">
+    <div class="relative flex flex-col w-full h-full text-slate-700 bg-white shadow-md rounded-xl bg-clip-border">
+        <div class="relative mx-4 mt-4 overflow-hidden text-slate-700 bg-white rounded-none bg-clip-border">
+            <div class="flex items-center justify-between ">
+                <div>
+                    <h3 class="text-lg font-semibold text-slate-800">Listado de usuarios</h3>
+                    <!-- <p class="text-slate-500">{{ users.length  === 1 ? users.length + ' usuario' : users.length + ' usuarios'  }}</p> -->
+                    <p class="text-slate-500">{{ filterUser }}</p>
+                </div>
+                <div class="flex flex-col gap-2 shrink-0 sm:flex-row">
+                    <form  >
+                        <input
+                            class="appearance-none block w-full bg-slate-200 text-slate-700 border border-slate-200 rounded py-2.5 px-3  leading-tight focus:outline-none focus:bg-white"
+                            type="text"
+                            placeholder="Buscar usuario..."
+                            ngModel
+                            name="filterUser"
+                            (ngModelChange)="filterUsers($event)"
+                            >
+                    </form>
+
+                    <button (click)="toggleModal()"
+                        class="flex select-none items-center gap-2 rounded bg-slate-800 py-2.5 px-4 text-xs font-semibold text-white shadow-md shadow-slate-900/10 transition-all hover:shadow-lg hover:shadow-slate-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"
+                            color="currentColor" fill="none">
+                            <path
+                                d="M5.18007 15.2964C3.92249 16.0335 0.625213 17.5386 2.63348 19.422C3.6145 20.342 4.7071 21 6.08077 21H13.9192C15.2929 21 16.3855 20.342 17.3665 19.422C19.3748 17.5386 16.0775 16.0335 14.8199 15.2964C11.8709 13.5679 8.12906 13.5679 5.18007 15.2964Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M14 7C14 9.20914 12.2091 11 10 11C7.79086 11 6 9.20914 6 7C6 4.79086 7.79086 3 10 3C12.2091 3 14 4.79086 14 7Z"
+                                stroke="currentColor" stroke-width="1.5" />
+                            <path d="M19.5 4V9M22 6.5L17 6.5" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        Agregar usuario
+                    </button>
+                </div>
+            </div>
+            <div class="p-0 ">
+                <table class="w-full mt-4 text-left table-auto min-w-max">
+                    <thead>
+                        <tr>
+                            <th
+                                class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                                <p
+                                    class="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500">
+                                    Nombres
+                                </p>
+                            </th>
+                            <th
+                                class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                                <p
+                                    class="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500">
+                                    Dirección
+                                </p>
+                            </th>
+                            <th
+                                class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                                <p
+                                    class="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
+                                    DNI
+                                </p>
+                            </th>
+                            <th
+                                class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                                <p
+                                    class="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
+                                    Email
+                                </p>
+                            </th>
+                            <th
+                                class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-50 hover:bg-slate-100">
+                                <p
+                                    class="flex items-center justify-between gap-2 font-sans text-sm  font-normal leading-none text-slate-500">
+                                    Acciones
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    @if(users.length > 0 ){
+                    @for (user of users; track user.id) {
+                    <tbody>
+                        <tr>
+                            <td class="p-4 border-b border-slate-200">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://github.com/{{user.name}}.png" alt="{{user.name}}"
+                                        class="relative inline-block h-9 w-9 !rounded-full object-cover object-center" />
+                                    <div class="flex flex-col">
+                                        <p class="text-sm font-semibold text-slate-700">
+                                            {{user.name}}
+                                        </p>
+                                        <p class="text-sm text-slate-500">
+                                            {{user.lastName}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 border-b border-slate-200">
+                                <div class="flex flex-col">
+                                    <p class="text-sm font-semibold text-slate-700">
+                                        {{user.city}}
+                                    </p>
+                                    <p class="text-sm text-slate-500">
+                                        {{user.country}}
+                                    </p>
+                                </div>
+                            </td>
+                            <td class="p-4 border-b border-slate-200">
+                                <div class="w-max">
+                                    <div
+                                        class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
+                                        <span class="">{{user.dni}}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 border-b border-slate-200">
+                                <p class="text-sm text-slate-500">
+                                    {{user.email}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-slate-200">
+                                <button
+                                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    type="button">
+                                    <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
+                                            height="20" color="#000000" fill="none">
+                                            <path
+                                                d="M14.0737 3.88545C14.8189 3.07808 15.1915 2.6744 15.5874 2.43893C16.5427 1.87076 17.7191 1.85309 18.6904 2.39232C19.0929 2.6158 19.4769 3.00812 20.245 3.79276C21.0131 4.5774 21.3972 4.96972 21.6159 5.38093C22.1438 6.37312 22.1265 7.57479 21.5703 8.5507C21.3398 8.95516 20.9446 9.33578 20.1543 10.097L10.7506 19.1543C9.25288 20.5969 8.504 21.3182 7.56806 21.6837C6.63212 22.0493 5.6032 22.0224 3.54536 21.9686L3.26538 21.9613C2.63891 21.9449 2.32567 21.9367 2.14359 21.73C1.9615 21.5234 1.98636 21.2043 2.03608 20.5662L2.06308 20.2197C2.20301 18.4235 2.27297 17.5255 2.62371 16.7182C2.97444 15.9109 3.57944 15.2555 4.78943 13.9445L14.0737 3.88545Z"
+                                                stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                                            <path d="M13 4L20 11" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linejoin="round" />
+                                            <path d="M14 22L22 22" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+
+                                    </span>
+                                </button>
+                                <button (click)="onCLick(user)"
+                                    class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                    type="button">
+                                    <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
+                                            height="20" color="#000000" fill="none">
+                                            <path
+                                                d="M19.5 5.5L18.8803 15.5251C18.7219 18.0864 18.6428 19.3671 18.0008 20.2879C17.6833 20.7431 17.2747 21.1273 16.8007 21.416C15.8421 22 14.559 22 11.9927 22C9.42312 22 8.1383 22 7.17905 21.4149C6.7048 21.1257 6.296 20.7408 5.97868 20.2848C5.33688 19.3626 5.25945 18.0801 5.10461 15.5152L4.5 5.5"
+                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                            <path
+                                                d="M3 5.5H21M16.0557 5.5L15.3731 4.09173C14.9196 3.15626 14.6928 2.68852 14.3017 2.39681C14.215 2.3321 14.1231 2.27454 14.027 2.2247C13.5939 2 13.0741 2 12.0345 2C10.9688 2 10.436 2 9.99568 2.23412C9.8981 2.28601 9.80498 2.3459 9.71729 2.41317C9.32164 2.7167 9.10063 3.20155 8.65861 4.17126L8.05292 5.5"
+                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                                            <path d="M9.5 16.5L9.5 10.5" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" />
+                                            <path d="M14.5 16.5L14.5 10.5" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                    }
+                    }@else {
+                    <div class="flex w-full items-center p-4 border-b border-slate-200">
+                        <div class="flex">
+                            <span class="text-sm font-semibold text-slate-700 text-center">
+                                No hay usuarios
+                            </span>
+                        </div>
+                    </div>
+
+                    }
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    @if(showModal) {
+
+    <div
+        class="absolute left-0 right-0 top-0 bottom-0 z-50 flex w-full h-screen justify-center items-center flex-col bg-gray-400 bg-opacity-50">
+        <app-new-user [toggleModal]="closeModal.bind(this)" [cargarUsuarios]="cargarUsuarios.bind(this)"
+            [showModal]="showModal"></app-new-user>
+    </div>
+    }
